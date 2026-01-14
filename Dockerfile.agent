@@ -1,0 +1,13 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Минимальные зависимости для агента
+RUN pip install --no-cache-dir python-dotenv
+
+# Копирование агента
+COPY agent.py .
+
+ENV PYTHONUNBUFFERED=1
+
+CMD ["python", "agent.py"]

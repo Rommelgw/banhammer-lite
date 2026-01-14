@@ -1,0 +1,19 @@
+version: '3.8'
+
+# Запускать на каждой VPN ноде
+services:
+  banhammer-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+    container_name: banhammer-agent
+    restart: unless-stopped
+    volumes:
+      - ${LOG_DIR:-/var/log/remnanode}:/var/log/remnanode:ro
+    environment:
+      - NODE_NAME=${NODE_NAME:-node1}
+      - BANHAMMER_HOST=${BANHAMMER_HOST}
+      - BANHAMMER_PORT=${BANHAMMER_PORT:-9999}
+      - LOG_FILE=${LOG_FILE:-/var/log/remnanode/access.log}
+      - RECONNECT_DELAY=${RECONNECT_DELAY:-5}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
